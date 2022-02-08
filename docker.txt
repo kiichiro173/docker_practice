@@ -1,0 +1,87 @@
+# Dockerに関して
+Dockerは同じ環境を作成するために使用する。
+同じコンテナを使用することによって同じ環境を作成することができる。
+
+imageからコンテナを作成することができる。
+docker hubにdocker image が保存されているのでそこからdocker imageを取得することが出来る。
+
+
+
+dockerのコマンドに関して
+# dockerのイメージの確認
+docker images
+
+# docker hubからdocker imageを取得する
+docker pull イメージ名
+
+# dockerのイメージを削除する
+docker rmi イメージ名
+
+
+# imageからコンテナを作成する(ローカルにイメージがなかったらdocker hubから自動的にpullしてくる。)
+docker run image名
+docker run -it ubuntu bash  # この例の場合はubuntuの中に入ってbashを起動している。
+
+# コンテナに名前をつけるとき
+docker run --name 名前 イメージ名
+
+→ run = create + start
+create : コンテナを作成している。
+start : コンテナを起動している。
+
+-i :インプット可能
+-t :表示が綺麗になる
+
+# コンテナの確認(-a オプションを使用することによって全てのコンテナを確認することが出来る。)
+docker ps
+
+# コンテナの停止
+docker stop コンテナID
+docker stop 78f9102ebd6e
+
+# 止まっているコンテナをもう一度起動する方法
+docker restart イメージID
+
+# 現在起動しているコンテナに対して何か命令を出す
+docker exec -it コンテナID 実行するプログラム
+docker exec -it 78f9102ebd6e bash
+
+# コンテナからデタッチモードで出る場合(exitとは違うので注意)
+ctrl + p + q
+
+# 起動しているコンテナにアタッチする方法
+docker attach コンテナID
+docker attach 78f9102ebd6e
+
+# コンテナから新しいイメージを作成する
+docker commit コンテナID 新しいイメージ名:タグ名
+docker commit 78f9102ebd6e ubuntu:updated
+
+# コンテナを削除する
+docker rm コンテナIDもしくはイメージ名
+
+# 止まっているコンテナを全て削除する
+docker system prune
+
+# イメージ名を変更する場合
+docker tag 元のイメージ名 新しいイメージ名
+docker tag ubuntu:updated username/my_first_repo:latest
+
+# 新しいイメージをdocker hubにプッシュする(docker hubにレポジトリを作成しておく必要がある。)
+docker push イメージ名
+
+# Dockerfileとは？？
+→docker imageの設計図
+→Dockerfileからimageを作成することが出来る。
+
+# Dockerfileからdocker imageを作成する
+docker build -t イメージ名 ディレクトリ
+docker build -t new-ubuntu:latest .
+
+
+
+
+
+
+
+
