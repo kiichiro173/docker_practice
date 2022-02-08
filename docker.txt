@@ -78,10 +78,55 @@ docker push イメージ名
 docker build -t イメージ名 ディレクトリ
 docker build -t new-ubuntu:latest .
 
+# Dockerfileがないときのbuildの仕方
+docker build -f <dockerfilename> <build context>
+docker build -f dockerfile.dev .
+
+# build contextに関して
+→buildする時のディレクトリのこと(dockerファイルがあるディレクトリのことと思って良さそう。)
+→docker deamonがこのbuild contextをもとにイメージが作成される。
 
 
 
+# dockerファイルの作成に関して
+FROM
+→ベースとなるイメージを決定
 
+RUN
+→Linuxコマンドを実行
+→RUNごとにレイヤーが作られる。
 
+RUNのレイヤーを小さくするには？？
+→&& でつなげて行うことが大切になってくる。
+→バックスラッシュで改行することで対応することが可能
+→RUNは全てroot直下で実行される。（指定したディレクトリで実行したい場合はWORKDIRを使用することでできる。）
 
+CMD
+→コンテナのデフォルトのコマンドを指定する。
+→CMD ["bin/bash"]
+
+COPY
+→COPY <コピーしたいファイル> <docker内の置き場所>
+例
+RUN mkdir /new_dir
+COPY docker.txt /new_dir
+
+COPY src /new_dir
+→このようにディレクトリを指定しても良い。
+
+ADD <コピーしたいファイル> <docker内の置き場所>
+→ADDは自動的にtarファイルを解凍するので、tarファイルなどの圧縮ファイルをコピーするときに主に使用する。
+
+ENV
+→環境変数を設定する。
+→ENV <key> <value>
+ENV key1=value
+
+WORKDIR
+→ なるべく絶対パスを記載するとよい
+→ WORKDIRの後はroot直下ではなく指定したディレクトリでの作業になる。
+→指定したディレクトリで実行したい場合はWORKDIRを使用することでできる
+→またdockerのコンテナの中に入った時はWORKDIRの中に入っている。
+→ディレクトリがなかったら自動的に作成される。（RUN mkdir new_dirは行う必要がない。）
+WORKDIR /new_dir
 
