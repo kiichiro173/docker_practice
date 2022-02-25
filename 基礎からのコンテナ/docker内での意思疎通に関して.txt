@@ -1,0 +1,48 @@
+ubuntuのコンテナを作成
+→$ docker run --rm -it ubuntu /bin/bash
+必要なソフトをインストール
+→apt update
+→apt -y upgrade
+→apt install -y iproute2 iputils-ping curl
+
+ubuntuのコンテナのipadressを確認する
+→$ ip address
+172.17.0.4これがipアドレス
+inet 172.17.0.4/16 brd 172.17.255.255 scope global eth0
+
+意思疎通が可能なのか確認する
+$ ping -c 4 意思疎通したいコンテナのアドレス
+→ping -c 4 172.17.0.2
+-c 4は4回試したら終わるオプション
+→コンテナのアドレスを取得する方法docker container inspect --format="{{.NetworkSettings.IPAddress}}" web01
+
+意思疎通したいサーバがWebサーバであった場合は以下のコマンドで確認できる
+→同じdockerエンジンの中であるのでポートを指定する必要がない。
+＄curl http://172.17.0.2/
+＄curl http://172.17.0.2/
+
+
+上記のようにコンテナ同士で接続をする際に自動的にコンテナ名を使用して接続するということはできない。
+そのようにするにはDockerネットワークを自分自身で作成する必要がある。
+同じネットワーク内であれば名前を使用した通信が可能！！
+
+Dockerネットワークの作成
+$ docker network create ネットワーク名
+
+Dockerネットワークのの確認
+$ docker network ls
+
+作成したネットワークの詳細情報
+$ docker network inspect ネットワーク名
+
+コンテナを起動する際に作成したネットワークを付与する。
+$docker run -dit --name web01 -p 8080:80 --net mydockernet httpd:2.4
+→apt update
+→apt -y upgrade
+→apt install -y iproute2 iputils-ping curl
+これを行なった後に
+ping -c 4 web01
+をやってみると同じネットワーク内であるのでレスポンスが返ってくる事を確認する事ができる。
+
+ネットワークの削除
+$ docker network rm mydockernet

@@ -1,0 +1,13 @@
+Dockerのネットワークの確認
+→$ docker network ls
+→ネットワークは大きく三つに分けられている。
+→bridgeネットワーク・hostネットワーク・noneネットワーク
+
+bridgeネットワークに関して
+→規定のネットワーク
+→それぞれのネットワークは独立している。
+
+コンテナのIPアドレスに関して以下のコマンド確認する事ができる。
+→$ docker container inspect コンテナ名もしくはコンテナID
+inspectで特定の値を確認したい時は以下
+→$ docker container inspect --format="{{.NetworkSettings.IPAddress}}" web01
