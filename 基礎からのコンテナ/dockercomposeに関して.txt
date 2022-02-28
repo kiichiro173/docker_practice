@@ -1,0 +1,41 @@
+# docker-compose.ymlの書き方
+基本的には三つの値を定義する必要がある。
+→サービス・ネットワーク・ボリューム
+
+サービス
+→一つのコンテナのことを指す。
+
+ネットワーク
+→サービスが参加するネットワークを定義
+
+ボリューム
+→サービスが利用するボリュームを定義
+
+
+
+
+
+
+
+
+
+
+# 基本的にdokcer-composeは特別な場合がない限りは起動方法は以下
+コンポーズyamlファイルを作成してyamlファイルがある箇所で以下のコマンドを叩く。
+$  docker-compose up -d
+
+wordpressの設定をdockerで作成してみる。
+
+1.ネットワークの作成
+$  docker network create wordpressnet
+
+2.ボリュームの作成
+$ docker volume create wordpress_db_volume
+
+3.mysqlコンテナを起動する。
+$ docker run --name wordpress-db -dit -v wordpress_db_volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=myrootpassword -e MYSQL_DATABASE=wordpressdb -e MYSQL_USER=wordpressuser -e MYSQL_PASSWORD=wordpresspass --net wordpressnet mysql:5.7
+
+4.wordpressのコンテナを作成する。
+$ docker run --name wordpress-app -dit -p 8080:80 -e WORDPRESS_DB_HOST=wordpress-db -e WORDPRESS_DB_NAME=wordpressdb -e WORDPRESS_DB_USER=wordpressuser -e WORDPRESS_DB_PASSWORD=wordpresspass --net wordpressnet wordpress
+
+
