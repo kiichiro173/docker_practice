@@ -5,13 +5,13 @@ RUN python -m pip install --upgrade pip
 
 
 # sshキーの追加
-RUN mkdir -p /root/.ssh
-ADD ~/.ssh /root/.ssh
-RUN chmod 600 /root/.ssh/*
+# RUN mkdir -p /root/.ssh
+# ADD ~/.ssh /root/.ssh
+# RUN chmod 600 /root/.ssh/*
 
 WORKDIR /app
 
-# pip install pipenv なので pipenv run python スクリプト　ってなる
+# pip install pipenv なので pipenv run python スクリプト ってなる
 # pip3 install pipenv の場合は　pipenv run python3 スクリプトってなる。
 RUN pip install pipenv && pipenv install
 
