@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+    app:
+        # Dockerfileがある場所を指定する。
+        build: .
+        volumes:
+            - ".:/app" # マウントの指定
+        # image名を設定する。
+        image: "treatmentmanagement200:latest"
+        # コンテナ名を明示的に指定する
+        container_name: "treatmentmanagement200con"
+        # -itを行っている。(これがないと上手くいかない。)
+        tty: true
+        stdin_open: true

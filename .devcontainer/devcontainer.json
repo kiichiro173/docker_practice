@@ -1,0 +1,12 @@
+{
+	"name": "Python Sample",
+	"dockerComposeFile": "../docker-compose.yml", // docker-compose
+	"service": "app", // serviceはdocker-compose.ymlのサービス名を指定する。これを指定しないとvscodeから仮想環境を作成することができない。
+	"workspaceFolder":"/app", // docker-composeを使用した立ち上げだとworkspaceを指定しないといけない。。
+	// Dockerfileでイメージ・コンテナを作成するときは以下のやつを使用する。→その代わりdocker-compose.ymlは使用しない。
+	// "dockerFile": "../Dockerfile",
+	// リモート先のVS Codeにインストールする拡張機能
+	"extensions": [
+		"ms-python.python"
+	]
+} 
