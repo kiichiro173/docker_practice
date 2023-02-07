@@ -1,0 +1,20 @@
+Dockerfileの構成に関して
+├─.devcontainer
+    ├─devcontainer.json
+├─docker-compose.yml
+└─Dockerfile
+
+# 実行手順(VScodeに　Dev Containersを入れていることが条件)
+# 1.vscode左下にある<>マークを押す。
+# 2.open folder in container （該当のフォルダーを指定する。.devcontainerがある場所を指定する！）
+
+
+
+# 使用方法
+これを持ってくするだけ。
+それぞれのファイルに関する説明はそれぞれに記載してあります。
+
+
+注意点
+・pipenv installはdockerのコンテナ内で行う必要がある。（なんかうまくいかない。）
+・git pullしたりpushしたりすることがコンテナ内だとできないことがある。（なぜかわからん。）

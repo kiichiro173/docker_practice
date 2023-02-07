@@ -6,9 +6,12 @@ services:
         volumes:
             - ".:/app" # マウントの指定
         # image名を設定する。
-        image: "treatmentmanagement200:latest"
+        image: "kakunin1001:latest"
         # コンテナ名を明示的に指定する
-        container_name: "treatmentmanagement200con"
+        container_name: "kakunin1001"
         # -itを行っている。(これがないと上手くいかない。)
         tty: true
         stdin_open: true
+        environment:
+            # pythonpathの指定（自作モジュールはこれがないとだめ。pathを通したいところのディレクトリを指定する。）
+            PYTHONPATH: /app
