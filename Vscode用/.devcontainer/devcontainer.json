@@ -9,4 +9,6 @@
 	"extensions": [
 		"ms-python.python"
 	]
+	// 場合によってはこのような書き方になるらしい。
+	// "customizations": {"vscode": {"extensions": ["ms-python.python"]}}
 } 
